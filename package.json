@@ -1,11 +1,11 @@
 {
-  "name": "au-pair-api",
+  "name": "aupair-api",
   "version": "0.1.0",
   "description": "An au-pair plugin for communicating against an API endpoint",
-  "keywords": "health, status, check, health check, status check, aupair",
+  "keywords": "health, status, check, health check, status check, au-pair",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bunk/au-pair-api.git"
+    "url": "git://github.com/bunk/aupair-api.git"
   },
   "main": "lib/index.js",
   "scripts": {

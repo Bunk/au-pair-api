@@ -1,4 +1,4 @@
-import "babel-polyfill";
+// import "babel-polyfill";
 import request from "request-promise";
 
 function defaultResponseTransform( response ) {
@@ -10,12 +10,13 @@ function defaultResponseTransform( response ) {
 }
 
 class ApiStrategy {
-  constructor( { uri, transforms = {} } = {} ) {
+  constructor( { name, uri, transforms = {} } = {} ) {
+    this.name = name;
     this.uri = uri;
     this.transforms = transforms;
   }
 
-  async check() {
+  check() {
     // TODO: Add validation on this stuff
     let options = { uri: this.uri, resolveWithFullResponse: true, simple: false, json: true };
 
@@ -23,8 +24,8 @@ class ApiStrategy {
       options = this.transforms.request( options );
     }
 
-    let response = await request( options );
-    return ( this.transforms.response || defaultResponseTransform )( response );
+    return request( options )
+      .then( response => ( this.transforms.response || defaultResponseTransform )( response ) );
   }
 }
 
