@@ -1,4 +1,3 @@
-// import "babel-polyfill";
 import request from "request-promise";
 
 function defaultResponseTransform( response ) {

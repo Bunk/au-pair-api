@@ -1,6 +1,6 @@
 {
   "name": "aupair-api",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An au-pair plugin for communicating against an API endpoint",
   "keywords": "health, status, check, health check, status check, au-pair",
   "repository": {
@@ -9,6 +9,7 @@
   },
   "main": "lib/index.js",
   "scripts": {
+    "clean": "rm -rf lib",
     "lint": "eslint --ignore-path .gitignore ./",
     "build": "babel -d lib/ src/ --ignore=\"*spec.js\"",
     "test": "npm run lint && npm run coverage",
@@ -16,18 +17,21 @@
     "test-watch": "NODE_ENV=test mocha -w --compilers js:babel-register -r ./spec-helpers -R spec 'src/**/*.spec.js'",
     "coverage": "nyc -r text-summary -r html --require=babel-register -- npm run test-and-exit",
     "show-coverage": "open ./coverage/index.html",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build && npm run coverage"
   },
   "author": "JD Courtoy <jd.courtoy@leankit.com>",
   "license": "MIT",
+  "peerDependency": {
+    "aupair": "*"
+  },
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-eslint": "^6.0.4",
     "babel-istanbul": "^0.8.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-syntax-async-functions": "^6.8.0",
-    "babel-polyfill": "^6.9.0",
+    "babel-plugin-transform-runtime": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-3": "^6.5.0",
     "chai": "^3.5.0",
     "eslint": "^2.10.2",
     "eslint-config-leankit": "^2.0.0",
@@ -39,6 +43,7 @@
     "sinon-as-promised": "^4.0.0"
   },
   "dependencies": {
+    "babel-runtime": "^6.9.2",
     "request-promise": "^3.0.0"
   }
 }
