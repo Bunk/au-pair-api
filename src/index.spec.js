@@ -8,9 +8,27 @@ var { assert } = testHelpers;
 describe( "au-pair-api checker", () => {
   let checker, result;
 
+  describe( "validation", () => {
+    it( "should require `name`", () => {
+      assert.throws( () => new ApiChecker( { uri: "http://localhost" } ) );
+    } );
+    it( "should require `uri`", () => {
+      assert.throws( () => new ApiChecker( { name: "name" } ) );
+    } );
+    it( "should throw when `uri` is not a valid uri", () => {
+      assert.throws( () => new ApiChecker( { name: "test", uri: "invalid" } ) );
+    } );
+    it( "should throw when `uri` is a relative uri", () => {
+      assert.throws( () => new ApiChecker( { name: "test", uri: "/relative/path" } ) );
+    } );
+    it( "should not throw when `uri` is a valid qualified uri", () => {
+      assert.doesNotThrow( () => new ApiChecker( { name: "test", uri: "http://localhost" } ) );
+    } );
+  } );
+
   describe( "with the default transforms", () => {
     beforeEach( () => {
-      checker = new ApiChecker( { uri: "http://localhost/status" } );
+      checker = new ApiChecker( { name: "something", uri: "http://localhost/status" } );
     } );
 
     describe( "with a healthy endpoint", () => {
@@ -53,6 +71,7 @@ describe( "au-pair-api checker", () => {
   describe( "with custom transforms", () => {
     beforeEach( () => {
       checker = new ApiChecker( {
+        name: "test",
         uri: "http://localhost/status",
         transforms: {
           response( response ) {

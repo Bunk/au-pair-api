@@ -22,7 +22,7 @@
   "author": "JD Courtoy <jd.courtoy@leankit.com>",
   "license": "MIT",
   "peerDependency": {
-    "aupair": "*"
+    "aupair": ">1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",
+    "joi": "^9.0.0-3",
     "request-promise": "^3.0.0"
   }
 }

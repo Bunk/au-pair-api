@@ -1,4 +1,5 @@
 import request from "request-promise";
+import validator from "./validation";
 
 function defaultResponseTransform( response ) {
   const status = response.statusCode >= 200 && response.statusCode < 300; // eslint-disable-line no-magic-numbers
@@ -9,14 +10,15 @@ function defaultResponseTransform( response ) {
 }
 
 class ApiStrategy {
-  constructor( { name, uri, transforms = {} } = {} ) {
+  constructor( { name, uri, transforms = {} } ) {
+    validator.validate( { name, uri, transforms } );
+
     this.name = name;
     this.uri = uri;
     this.transforms = transforms;
   }
 
   check() {
-    // TODO: Add validation on this stuff
     let options = { uri: this.uri, resolveWithFullResponse: true, simple: false, json: true };
 
     if ( this.transforms.request ) {
