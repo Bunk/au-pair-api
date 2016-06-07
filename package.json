@@ -1,6 +1,6 @@
 {
   "name": "aupair-api",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "An au-pair plugin for communicating against an API endpoint",
   "keywords": "health, status, check, health check, status check, au-pair",
   "repository": {

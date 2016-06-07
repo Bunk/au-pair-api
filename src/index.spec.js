@@ -63,7 +63,7 @@ describe( "au-pair-api checker", () => {
       } );
 
       it( "should return an undefined error message", () => {
-        assert.deepEqual( result.error, { error: "Not OK, man" } );
+        assert.deepEqual( result.error, new Error( "Not OK, man" ) );
       } );
     } );
   } );

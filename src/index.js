@@ -5,7 +5,9 @@ function defaultResponseTransform( response ) {
   const status = response.statusCode >= 200 && response.statusCode < 300; // eslint-disable-line no-magic-numbers
   return {
     healthy: status,
-    error: status ? undefined : response.body
+    degraded: false,
+    error: status ? undefined : new Error( response.body ),
+    message: status ? undefined : response.body
   };
 }
 
@@ -18,15 +20,16 @@ class ApiStrategy {
     this.transforms = transforms;
   }
 
-  check() {
+  async check() {
     let options = { uri: this.uri, resolveWithFullResponse: true, simple: false, json: true };
 
     if ( this.transforms.request ) {
       options = this.transforms.request( options );
     }
 
-    return request( options )
-      .then( response => ( this.transforms.response || defaultResponseTransform )( response ) );
+    let response = await request( options );
+    let transformed = ( this.transforms.response || defaultResponseTransform )( response );
+    return transformed;
   }
 }
 
