@@ -11,7 +11,7 @@
   "scripts": {
     "clean": "rm -rf lib",
     "lint": "eslint --ignore-path .gitignore ./",
-    "build": "babel -d lib/ src/ --ignore=\"*spec.js\"",
+    "build": "npm run clean && babel -d lib/ src/ --ignore=\"*spec.js\"",
     "test": "npm run lint && npm run coverage",
     "test-and-exit": "NODE_ENV=test mocha --compilers js:babel-register -r ./spec-helpers -R spec 'src/**/*.spec.js'",
     "test-watch": "NODE_ENV=test mocha -w --compilers js:babel-register -r ./spec-helpers -R spec 'src/**/*.spec.js'",
